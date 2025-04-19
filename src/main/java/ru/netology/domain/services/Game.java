@@ -1,27 +1,20 @@
 package ru.netology.domain.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 
-    ArrayList<Player> players = new ArrayList<>();
+    HashMap<String, Player> players = new HashMap<>();
 
     public void register(Player player) {
-        players.add(player);
+        players.put(player.getName(), player);
     }
 
     public int round(String playerName1, String playerName2) {
-        Player player1 = null; // переменная для игрока 1
-        Player player2 = null; // переменная для игрока 2
+        Player player1 = players.get(playerName1); // полуение игрока 1 из мапы
+        Player player2 = players.get(playerName2); // получение игрока 2 из мапы
 
-        for (Player player : players) {  // проверяем зарегистрированны ли игроки
-            if (player.getName().equals(playerName1)) {
-                player1 = player;
-            }
-            if (player.getName().equals(playerName2)) {
-                player2 = player;
-            }
-        }
         if (player1 == null) {   //выбрасываем исключение если игроки не зарегистрированны
             throw new NotRegisteredException(playerName1);
         }
